@@ -11,6 +11,7 @@ import ReactDOM from "react-dom";
 import { useInView } from "react-intersection-observer";
 import OverlayEffect from "./OverlayEffect";
 import { useHistory } from "react-router-dom";
+import LinkButton from "./LinkButton";
 const ProjectLink = styled.a`
   width: 80%;
   margin: 0 auto;
@@ -133,7 +134,7 @@ function ProjectCase({ project, scroll }) {
         <SubHeader customSize="1.5rem" responsiveSize="1rem" customColor="#fff">
           {project.subtitle}
         </SubHeader>
-        <Button>Case Study</Button>
+        <LinkButton href={project.ref}>Case Study</LinkButton>
       </animated.div>
       <animated.div
         style={{
