@@ -1,38 +1,113 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "League Spartan";
+  src: local("League Spartan Bold"), local("LeagueSpartan-Bold"),
+    url("./fonts/Leaguespartanbold.woff2") format("woff2"),
+    url("./fonts/Leaguespartanbold.woff") format("woff"),
+    url("./fonts/Leaguespartanbold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: "Libre Baskerville";
+  src: local("Libre Baskerville"), local("LibreBaskerville-Regular"),
+    url("./fonts/librebaskerville.woff2") format("woff2"),
+    url("./fonts/librebaskerville.woff") format("woff"),
+    url("./fonts/librebaskerville.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+strong {
+  color: #f06449;
+}
+*::selection {
+  background: #ff4757;
+}
+
+body,
+html {
+  width: 100%;
+  min-height: 100%;
+  font-family: "League Spartan", sans-serif;
+}
+
+#mainSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.spinnerInMainSpinner {
+  position: relative;
+}
+
+.spinnerInMainSpinner:before,
+.spinnerInMainSpinner:after {
+  content: "";
+  position: relative;
+  display: block;
+}
+
+.spinnerInMainSpinner:before {
+  -webkit-animation: spinner 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  animation: spinner 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  width: 2em;
+  height: 2em;
+  background-color: #fff;
+}
+
+.spinnerInMainSpinner:after {
+  -webkit-animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+  bottom: -1em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+@-webkit-keyframes spinner {
+  50% {
+    border-radius: 50%;
+    -webkit-transform: scale(0.5) rotate(360deg);
+    transform: scale(0.5) rotate(360deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(720deg);
+    transform: scale(1) rotate(720deg);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes spinner {
+  50% {
+    border-radius: 50%;
+    -webkit-transform: scale(0.5) rotate(360deg);
+    transform: scale(0.5) rotate(360deg);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    -webkit-transform: scale(1) rotate(720deg);
+    transform: scale(1) rotate(720deg);
+  }
+}
+@-webkit-keyframes shadow {
+  50% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+@keyframes shadow {
+  50% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }

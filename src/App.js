@@ -1,26 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "./components/layout/Container";
+import "./App.css";
+import { useTransition, animated } from "react-spring";
+import Preload from "./components/layout/Preload";
+import MainContent from "./components/layout/MainContent";
+import WorkContent from "./components/layout/WorkContent";
+import styled, { ThemeProvider, withTheme } from "styled-components";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import themes from "./theme";
+import routes from "./components/routes";
+const MainContainer = styled.div`
+  background: ${props => props.theme.background || "#EBEBEB"};
+  transition: 0.5s;
+  width: 100vw;
+  overflow-x: hidden;
+  min-width: 100vw;
+  max-width: 100vw;
+`;
+
+const { dark, light } = themes;
 
 function App() {
+  const [preload, togglePreload] = React.useState(true);
+  const [theme, changeTheme] = React.useState(light);
+  const transitions = useTransition(preload, null, {
+    from: { opacity: 0 },
+    initial: { opacity: 1 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 }
+  });
+  const toggleTheme = () => changeTheme(theme === light ? dark : light);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <MainContainer theme={theme}>
+        {transitions.map(({ item, key, props }) =>
+          item ? (
+            <animated.div style={{ ...props }}>
+              <Preload off={() => togglePreload(false)}></Preload>
+            </animated.div>
+          ) : (
+            <animated.div
+              style={{
+                width: "100vw",
+                height: "100vh",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                ...props
+              }}
+            >
+              <ThemeProvider theme={theme}>
+                <Switch>
+                  {routes.map(r => (
+                    <Route path={r.path} exact={r.exact}>
+                      {<r.component changeTheme={toggleTheme}></r.component>}
+                    </Route>
+                  ))}
+                </Switch>
+              </ThemeProvider>
+            </animated.div>
+          )
+        )}
+      </MainContainer>
+    </Router>
   );
 }
 
-export default App;
+export default withTheme(App);
