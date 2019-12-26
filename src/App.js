@@ -5,7 +5,7 @@ import { useTransition, animated } from "react-spring";
 import Preload from "./components/layout/Preload";
 import MainContent from "./components/layout/MainContent";
 import WorkContent from "./components/layout/WorkContent";
-import styled, { ThemeProvider, withTheme } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import themes from "./theme";
 import routes from "./components/routes";
@@ -56,7 +56,7 @@ function App() {
               <ThemeProvider theme={theme}>
                 <Switch>
                   {routes.map(r => (
-                    <Route path={r.path} exact={r.exact}>
+                    <Route path={r.path} key={r.path} exact={r.exact}>
                       {
                         <r.component
                           togglePreload={togglePreload}
@@ -75,4 +75,4 @@ function App() {
   );
 }
 
-export default withTheme(App);
+export default App;

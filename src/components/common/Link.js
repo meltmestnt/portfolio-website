@@ -75,6 +75,7 @@ function Link({
         item !== null ? (
           item ? (
             <animated.div
+              key={key}
               style={{
                 position: "absolute",
                 bottom: 0,
@@ -87,6 +88,7 @@ function Link({
             ></animated.div>
           ) : (
             <animated.div
+              key={key}
               style={{
                 position: "absolute",
                 bottom: 0,

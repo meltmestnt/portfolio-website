@@ -1,17 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition, config } from "react-spring";
 
-function OverlayEffect({ duration = 800, animate = null }) {
+function OverlayEffect({ duration = 100, animate = null }) {
   const [show, toggleShow] = React.useState(true);
   const transitions = useTransition(show, null, {
-    from: { width: "100%" },
-    config: { mass: 1, tension: 500, friction: 75 },
+    from: { width: "100%", right: 0 },
+    config: config.slow,
     enter: {
-      width: "100%"
+      width: "100%",
+      transform: `translateX(0%)`,
+      right: 0
     },
     leave: {
-      width: "0%"
+      width: "0%",
+      right: 0,
+      transform: `translateX(100%)`
     }
   });
 
@@ -30,18 +34,29 @@ function OverlayEffect({ duration = 800, animate = null }) {
   return transitions.map(
     ({ item, key, props }) =>
       item && (
-        <animated.div
-          key={key}
+        <div
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
+            overflow: "hidden",
+            width: "100%",
             height: "100%",
-            background: " #fff",
-            zIndex: 999999,
-            ...props
+            left: 0,
+            top: 0
           }}
-        ></animated.div>
+        >
+          <animated.div
+            key={key}
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              height: "100%",
+              background: " #fff",
+              zIndex: 999999,
+              ...props
+            }}
+          ></animated.div>
+        </div>
       )
   );
 }

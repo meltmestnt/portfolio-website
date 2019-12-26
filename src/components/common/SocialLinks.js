@@ -29,7 +29,7 @@ function SocialLinks({ direction, enable = false }) {
   return (
     <Wrapper enable={enable} direction={direction}>
       {links.map(l => (
-        <SocialLink href={l.link}>
+        <SocialLink key={l.link} href={l.link}>
           <FontAwesomeIcon icon={l.icon}></FontAwesomeIcon>
         </SocialLink>
       ))}

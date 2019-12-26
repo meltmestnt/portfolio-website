@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { animated, useSpring } from "react-spring";
 
 const I = styled.a`
-  color: #1c1d25;
+  color: ${props => props.defaultColor || "black"};
   text-decoration: none;
   position: relative;
   transition: 0.5s;
@@ -14,17 +14,17 @@ const I = styled.a`
   font-size: 4rem;
   margin: 15px;
   &:hover {
-    color: ${props => props.color || "#1c1d25"};
+    color: ${props => props.color || "#1c1d25"} !important;
   }
 `;
 
 const Title = styled.h5`
   font-size: 0.9rem;
-  color: #1c1d25;
+  color: ${props => props.defaultColor || "#1c1d25"};
   font-weight: 700;
 `;
 
-function Icon({ children, title, color }) {
+function Icon({ children, title, color, defaultColor }) {
   const [hover, set] = useSpring(() => ({
     from: {
       transform: "translate(-50%, 300%)",
@@ -38,7 +38,12 @@ function Icon({ children, title, color }) {
       opacity: 0
     });
   return (
-    <I color={color} onMouseEnter={animate} onMouseLeave={undo}>
+    <I
+      color={color}
+      defaultColor={defaultColor}
+      onMouseEnter={animate}
+      onMouseLeave={undo}
+    >
       {children}
       <animated.div
         style={{
@@ -47,12 +52,12 @@ function Icon({ children, title, color }) {
           opacity: 1,
           left: "50%",
           transform: `translate(-50%, 200%)`,
-
+          width: "100%",
           textAlign: " center",
           ...hover
         }}
       >
-        <Title>{title}</Title>
+        <Title defaultColor={defaultColor}>{title}</Title>
       </animated.div>
     </I>
   );

@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Link = styled.a`
-  color: ${props => props.color || "#fff"};
+  color: ${props =>
+    props.color ? props.color : props.themed ? props.theme.color : "#fff"};
   text-decoration: none;
   font-size: 0.875rem;
   position: relative;
@@ -25,13 +26,15 @@ const Link = styled.a`
   }
 `;
 
-function CVLink({ color }) {
+function CVLink({
+  color,
+  themed = false,
+  text = "My CV",
+  href = "https://www.dropbox.com/s/p3bdsdkca2uiogv/Denis%27s%20Resume%20%281%29.pdf?dl=0"
+}) {
   return (
-    <Link
-      color={color}
-      href="https://www.dropbox.com/s/p3bdsdkca2uiogv/Denis%27s%20Resume%20%281%29.pdf?dl=0"
-    >
-      My CV
+    <Link themed={themed} color={color} href={href}>
+      {text}
     </Link>
   );
 }

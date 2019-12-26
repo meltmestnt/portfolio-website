@@ -7,12 +7,13 @@ const Description = styled.p`
   font-weight: 400;
   margin: 10px 0px;
   text-align: left;
+  color: ${props => (props.themed ? props.theme.color : "black")};
   @media (max-width: 575.98px) {
     font-size: 0.9rem;
   }
 `;
-function ModalDescription({ children }) {
-  return <Description>{children}</Description>;
+function ModalDescription({ children, themed = false }) {
+  return <Description themed={themed}>{children}</Description>;
 }
 
 export default ModalDescription;

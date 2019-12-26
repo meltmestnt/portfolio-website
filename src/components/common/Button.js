@@ -19,7 +19,7 @@ const CoolButton = styled.a`
   opacity: ${props => props.disabled && 0.6};
 `;
 
-function Button({ children, theme, disabled = false, click }) {
+function Button({ children, theme, disabled = false, click = null }) {
   const [arrow, set] = useSpring(() => ({
     from: { transform: `translate(50%, -50%)` },
     config: config.wobbly
@@ -67,7 +67,9 @@ function Button({ children, theme, disabled = false, click }) {
         <CoolButton
           onMouseLeave={animateLeave}
           disabled={disabled}
-          onClick={() => !disabled && click()}
+          onClick={() => {
+            if (!disabled && click) click();
+          }}
           onMouseEnter={animateHover}
         >
           {children}

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 35px;
-  padding: 0px 15px;
+  padding-bottom: 25px;
 `;
 
 const SocialLink = styled.a`
@@ -26,7 +26,7 @@ function SocialLinks() {
   return (
     <Wrapper>
       {links.map(l => (
-        <Link padding="0px" margin="10px 15px" href={l.link}>
+        <Link padding="0px" key={l.title} margin="10px 15px" href={l.link}>
           {l.title}
         </Link>
       ))}

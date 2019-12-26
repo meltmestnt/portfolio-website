@@ -13,7 +13,8 @@ const Nav = styled.nav`
   align-items: flex-end;
   position: relative;
   z-index: 99999;
-  @media (max-width: 1240px) {
+  padding: 0px;
+  @media (max-width: 768px) {
     padding: 15px;
   }
 `;

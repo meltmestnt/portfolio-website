@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Title = styled.h2`
-  color: ${props => props.color || "#fff"};
+  color: ${props =>
+    props.color ? props.color : props.themed ? props.theme.color : "#fff"};
   font-size: ${props => props.fontSize || "2.8rem"};
   margin: 10px;
   position: relative;
@@ -12,9 +13,9 @@ const Title = styled.h2`
   }
 `;
 
-function ProjectTitle({ children, fontSize, color }) {
+function ProjectTitle({ children, fontSize, color, themed = false }) {
   return (
-    <Title color={color} fontSize={fontSize}>
+    <Title themed={themed} color={color} fontSize={fontSize}>
       {children}
     </Title>
   );

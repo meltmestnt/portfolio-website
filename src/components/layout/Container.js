@@ -5,6 +5,9 @@ const Wrapper = styled.div`
   max-width: ${props => (props.fluid ? "100%" : "1240px")};
   margin-right: auto;
   height: auto;
+  // !
+  width: 100%;
+  position: relative;
   margin-left: auto;
 `;
 

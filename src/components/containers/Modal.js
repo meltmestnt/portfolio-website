@@ -109,23 +109,23 @@ const RightContainer = styled(ModalContainer)`
   background-color: rgba(28, 29, 37, 0.985);
 `;
 
-const ReactIcon = props => (
-  <Icon title="React" color="#18dcff">
+export const ReactIcon = ({ color }) => (
+  <Icon title="React" defaultColor={color} color="#18dcff">
     <FontAwesomeIcon icon={faReact}></FontAwesomeIcon>
   </Icon>
 );
-const VueIcon = props => (
-  <Icon title="Vue" color="#3ae374">
+export const VueIcon = ({ color }) => (
+  <Icon title="Vue" defaultColor={color} color="#3ae374">
     <FontAwesomeIcon icon={faVuejs}></FontAwesomeIcon>
   </Icon>
 );
-const JsIcon = props => (
-  <Icon title="Javascript" color="#ffd32a">
+export const JsIcon = ({ color }) => (
+  <Icon title="Javascript" defaultColor={color} color="#ffd32a">
     <FontAwesomeIcon icon={faJs}></FontAwesomeIcon>
   </Icon>
 );
-const HTMLIcon = props => (
-  <Icon title="HTML" color="#ff3838">
+export const HTMLIcon = ({ color }) => (
+  <Icon title="HTML" defaultColor={color} color="#ff3838">
     <FontAwesomeIcon icon={faHtml5}></FontAwesomeIcon>
   </Icon>
 );
@@ -429,10 +429,10 @@ function Modal({ close, modal }) {
                                   </ModalDescription>
                                 </div>
                                 <IconsWrapper>
-                                  <ReactIcon></ReactIcon>
-                                  <VueIcon></VueIcon>
-                                  <JsIcon></JsIcon>
-                                  <HTMLIcon></HTMLIcon>
+                                  <ReactIcon color="black"></ReactIcon>
+                                  <VueIcon color="black"></VueIcon>
+                                  <JsIcon color="black"></JsIcon>
+                                  <HTMLIcon color="black"></HTMLIcon>
                                   <LeftTextOverlap>About</LeftTextOverlap>{" "}
                                 </IconsWrapper>
                               </LeftContainer>

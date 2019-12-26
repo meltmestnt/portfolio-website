@@ -12,6 +12,12 @@ import ProjectTitle from "./../common/ProjectTitle";
 import styled from "styled-components";
 import { animated, config, useTransition } from "react-spring";
 import MenuOverlay from "./../containers/MenuOverlay";
+import OverlayEffect from "./../common/OverlayEffect";
+import ProjectDescription from "./../common/ProjectDescription";
+import ProjectOtherInfo from "./../common/ProjectOtherInfo";
+import useDimensions from "./../../utils/useDimensions";
+import Footer from "./Footer";
+import NextProject from "./../common/NextProject";
 
 const ImageWrapper = styled.div`
   width: 50%;
@@ -40,6 +46,7 @@ const ImageWrapper = styled.div`
 function WorkPage({ changeTheme, theme, togglePreload }) {
   const { id } = useParams();
   let parallax = React.useRef();
+  const { w, h } = useDimensions();
   const [showContent, toggleContent] = React.useState(false);
   const transitions = useTransition(showContent, null, {
     delay: 800,
@@ -59,13 +66,23 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
       setTimeout(() => toggleContent(true), 650);
     }
   });
-  const [project, changeProject] = React.useState(
-    projects.find(p => p.id === id)
-  );
+  const [{ project, nextProject }, changeProject] = React.useState(() => {
+    let index = 0;
+    return {
+      project: projects.find((p, i) => {
+        if (p.id === id) {
+          index = i + 1 === projects.length ? 0 : i + 1;
+          return true;
+        } else return false;
+      }),
+      nextProject: projects.find((p, i) => i === index)
+    };
+  });
   const [showMenu, toggleMenu] = React.useState(false);
   return transitions.map(({ item, key, props }) =>
     item ? (
       <animated.div
+        key={key}
         style={{
           background: theme.background || "#fff",
           position: "absolute",
@@ -80,7 +97,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
         <Parallax
           ref={ref => (parallax.current = ref)}
           style={{ background: `${theme.background}` }}
-          pages={2}
+          pages={w > 768 ? 2.15 : 2.42}
         >
           <ParallaxLayer offset={0} speed={1}>
             <MenuOverlay
@@ -127,21 +144,64 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
               style={{
                 width: "100%",
                 display: "flex",
-                justifyContent: "center"
+                justifyContent: "center",
+                position: "relative"
               }}
             >
-              <ProjectTitle color="#b19386">{project.title}</ProjectTitle>
+              <div style={{ position: "relative" }}>
+                <ProjectTitle color="#b19386">{project.title}</ProjectTitle>
+                <OverlayEffect></OverlayEffect>
+              </div>
             </div>
           </ParallaxLayer>
           <ParallaxLayer offset={0.4} speed={0.3}>
             <ImageWrapper>
               <ProjectImage src={project.img}></ProjectImage>
+              <OverlayEffect></OverlayEffect>
             </ImageWrapper>
+          </ParallaxLayer>
+          <ParallaxLayer
+            style={{ width: w > 768 ? "50%" : "100%" }}
+            offset={1}
+            speed={0.7}
+          >
+            <ProjectDescription project={project}>
+              {project.description}
+            </ProjectDescription>
+          </ParallaxLayer>
+          <ParallaxLayer
+            style={{
+              width: w > 768 ? "50%" : "100%",
+              marginLeft: w > 768 ? "50%" : "0%"
+            }}
+            offset={w > 768 ? 1 : 1.5}
+            speed={1.2}
+          >
+            <ProjectOtherInfo project={project}></ProjectOtherInfo>
+          </ParallaxLayer>
+          <ParallaxLayer
+            style={{ background: "#fff", height: 150 }}
+            offset={w > 768 ? 1.65 : 1.9}
+            speed={0.3}
+          >
+            <NextProject
+              click={() => togglePreload(true)}
+              scrollSection={parallax}
+              project={nextProject}
+            ></NextProject>
+          </ParallaxLayer>
+          <ParallaxLayer
+            style={{ background: "#1c1d25", marginTop: 150 }}
+            offset={w > 768 ? 1.65 : 1.9}
+            speed={0.3}
+          >
+            <Footer></Footer>
           </ParallaxLayer>
         </Parallax>
       </animated.div>
     ) : (
       <div
+        key={key}
         style={{
           background: theme.background || "#fff",
           position: "absolute",
