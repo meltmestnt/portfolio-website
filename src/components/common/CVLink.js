@@ -30,7 +30,7 @@ function CVLink({
   color,
   themed = false,
   text = "My CV",
-  href = "https://www.dropbox.com/s/p3bdsdkca2uiogv/Denis%27s%20Resume%20%281%29.pdf?dl=0"
+  href = "https://www.dropbox.com/s/9fz284lou7von36/Denis%27s%20Resume%20%282%29.pdf?dl=0"
 }) {
   return (
     <Link themed={themed} color={color} href={href}>

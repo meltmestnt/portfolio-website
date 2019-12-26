@@ -25,7 +25,7 @@ export default [
     icons: [ReactIcon],
     primeColor: "#ff3f34",
     description:
-      "Create, organize your tasks by date, project or mark. You can create a task on specific date or attach to project or mark; also you can set priority and griup tasks by priority!"
+      "Create, organize your tasks by date, project or mark. You can create a task on specific date or attach to project or mark; also you can set priority and group tasks by priority!"
   },
   {
     title: "Weather app",
