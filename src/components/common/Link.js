@@ -10,19 +10,29 @@ const LinkHover = styled.a`
   transition: 0.5s;
 `;
 
-const LinkWrapper = styled.span`
+export const LinkWrapper = styled.span`
   position: relative;
   cursor: pointer;
   display: flex;
   align-items: ${props => (props.noMargin ? "center" : "flex-end")};
   height: ${props => (props.noMargin ? "100%" : "auto")};
-  padding: ${props => (props.noMargin ? "0px" : "10px 5px")};
+  padding: ${props =>
+    props.noMargin ? "0px" : props.padding ? props.padding : "10px 5px"};
   overflow: hidden;
-  margin: ${props => (props.noMargin ? "0 10px" : "10px 10px")};
+  margin: ${props =>
+    props.noMargin ? "0 10px" : props.margin ? props.margin : "10px 10px"};
   margin-bottom: 0px;
 `;
 
-function Link({ children, click = null, href = "#", color, noMargin }) {
+function Link({
+  children,
+  click = null,
+  href = "#",
+  color,
+  noMargin,
+  margin,
+  padding
+}) {
   const [underline, toggleUnderline] = React.useState(null);
   let id = React.useRef();
   const transitions = useTransition(underline, null, {
@@ -42,6 +52,8 @@ function Link({ children, click = null, href = "#", color, noMargin }) {
   return (
     <LinkWrapper
       noMargin={noMargin}
+      margin={margin}
+      padding={padding}
       onClick={click || null}
       onMouseLeave={() => {
         if (underline === null || !underline) return;

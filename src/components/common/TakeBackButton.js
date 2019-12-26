@@ -3,10 +3,17 @@ import Link from "./Link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link as RouteLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function TakeBackButton(props) {
+function TakeBackButton({ click }) {
+  const history = useHistory();
+  const clicked = e => {
+    e.preventDefault();
+    if (click) click();
+    setTimeout(() => history.push("/"), 500);
+  };
   return (
-    <RouteLink style={{ textDecoration: "none" }} to="/">
+    <RouteLink onClick={clicked} style={{ textDecoration: "none" }} to="/">
       <Link>
         <FontAwesomeIcon
           style={{ margin: "0px 10px" }}

@@ -85,7 +85,6 @@ function ProjectCase({ project, scroll }) {
   };
 
   const callback = () => {
-    setAnimateBack(true);
     setTimeout(() => history.push(`/work/${project.id}`), 200);
   };
 

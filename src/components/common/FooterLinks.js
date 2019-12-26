@@ -26,7 +26,9 @@ function SocialLinks() {
   return (
     <Wrapper>
       {links.map(l => (
-        <Link href={l.link}>{l.title}</Link>
+        <Link padding="0px" margin="10px 15px" href={l.link}>
+          {l.title}
+        </Link>
       ))}
     </Wrapper>
   );

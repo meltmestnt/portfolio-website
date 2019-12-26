@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { animated, useTransition } from "react-spring";
 
 function OverlayEffect({ duration = 800, animate = null }) {
-  const overlayed = React.useRef();
   const [show, toggleShow] = React.useState(true);
   const transitions = useTransition(show, null, {
     from: { width: "100%" },
@@ -13,10 +12,9 @@ function OverlayEffect({ duration = 800, animate = null }) {
     },
     leave: {
       width: "0%"
-    },
-    onRest: () => (overlayed.current = true)
+    }
   });
-  console.log(overlayed);
+
   React.useEffect(() => {
     if (animate === true) toggleShow(false);
   }, [animate]);
@@ -31,8 +29,7 @@ function OverlayEffect({ duration = 800, animate = null }) {
 
   return transitions.map(
     ({ item, key, props }) =>
-      item &&
-      !overlayed.current && (
+      item && (
         <animated.div
           key={key}
           style={{

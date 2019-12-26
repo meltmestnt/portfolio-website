@@ -35,11 +35,15 @@ function App() {
       <MainContainer theme={theme}>
         {transitions.map(({ item, key, props }) =>
           item ? (
-            <animated.div style={{ ...props }}>
+            <animated.div
+              key={key}
+              style={{ background: theme.background || "#fff", ...props }}
+            >
               <Preload off={() => togglePreload(false)}></Preload>
             </animated.div>
           ) : (
             <animated.div
+              key={key}
               style={{
                 width: "100vw",
                 height: "100vh",
@@ -53,7 +57,12 @@ function App() {
                 <Switch>
                   {routes.map(r => (
                     <Route path={r.path} exact={r.exact}>
-                      {<r.component changeTheme={toggleTheme}></r.component>}
+                      {
+                        <r.component
+                          togglePreload={togglePreload}
+                          changeTheme={toggleTheme}
+                        ></r.component>
+                      }
                     </Route>
                   ))}
                 </Switch>

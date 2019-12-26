@@ -12,10 +12,12 @@ import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
 import WorkContent from "./WorkContent";
 import useDimensions from "./../../utils/useDimensions";
 import MenuOverlay from "./../containers/MenuOverlay";
+import { animated, config, useTransition } from "react-spring";
 function MainContent({ changeTheme, theme }) {
   let parallax = React.useRef();
   const [showMenu, toggleMenu] = React.useState(false);
   const { w, h } = useDimensions();
+  const transitions = useTransition();
   return (
     <Parallax
       style={{ background: `${theme.background}` }}
@@ -78,21 +80,36 @@ function MainContent({ changeTheme, theme }) {
         </Container>
       </ParallaxLayer>
       <ParallaxLayer
-        style={{ zIndex: -1, opacity: 0.5, color: "#ff4757", marginLeft: "1%" }}
+        style={{
+          zIndex: -1,
+          opacity: 0.5,
+          color: "#ff4757",
+          marginLeft: "1%"
+        }}
         offset={0.5}
         speed={2}
       >
         <FontAwesomeIcon icon={faStar} />
       </ParallaxLayer>
       <ParallaxLayer
-        style={{ zIndex: -1, opacity: 0.5, color: "#ffa502", marginLeft: "3%" }}
+        style={{
+          zIndex: -1,
+          opacity: 0.5,
+          color: "#ffa502",
+          marginLeft: "3%"
+        }}
         offset={0.3}
         speed={0.5}
       >
         <FontAwesomeIcon icon={faStar} />
       </ParallaxLayer>{" "}
       <ParallaxLayer
-        style={{ zIndex: -1, opacity: 0.5, color: "#3742fa", marginLeft: "5%" }}
+        style={{
+          zIndex: -1,
+          opacity: 0.5,
+          color: "#3742fa",
+          marginLeft: "5%"
+        }}
         offset={0.95}
         speed={1}
       >
@@ -183,7 +200,12 @@ function MainContent({ changeTheme, theme }) {
         <FontAwesomeIcon icon={faCircleNotch} />
       </ParallaxLayer>
       <ParallaxLayer
-        style={{ zIndex: -1, opacity: 0.5, color: "#3742fa", marginLeft: "5%" }}
+        style={{
+          zIndex: -1,
+          opacity: 0.5,
+          color: "#3742fa",
+          marginLeft: "5%"
+        }}
         offset={0.95}
         speed={1}
       >

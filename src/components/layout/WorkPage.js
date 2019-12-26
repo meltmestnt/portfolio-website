@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 import ProjectImage from "./../common/ProjectImage";
 import ProjectTitle from "./../common/ProjectTitle";
 import styled from "styled-components";
+import { animated, config, useTransition } from "react-spring";
+import MenuOverlay from "./../containers/MenuOverlay";
 
 const ImageWrapper = styled.div`
   width: 50%;
@@ -35,52 +37,122 @@ const ImageWrapper = styled.div`
   }
 `;
 
-function WorkPage({ changeTheme, theme }) {
+function WorkPage({ changeTheme, theme, togglePreload }) {
   const { id } = useParams();
+  let parallax = React.useRef();
+  const [showContent, toggleContent] = React.useState(false);
+  const transitions = useTransition(showContent, null, {
+    delay: 800,
+    from: {
+      opacity: 0
+    },
+    enter: {
+      opacity: 1
+    },
+    leave: {
+      opacity: 0
+    }
+  });
+  React.useEffect(() => {
+    if (id) {
+      console.log("content show");
+      setTimeout(() => toggleContent(true), 650);
+    }
+  });
   const [project, changeProject] = React.useState(
     projects.find(p => p.id === id)
   );
-  console.log(project, id, projects);
-  return (
-    <Parallax style={{ background: `${theme.background}` }} pages={2}>
-      <ParallaxLayer offset={0} speed={0.5}>
-        <Container>
-          <div
-            style={{
-              display: "flex",
-              position: "relative",
-              flexDirection: "column",
-              height: "100vh"
-            }}
-          >
+  const [showMenu, toggleMenu] = React.useState(false);
+  return transitions.map(({ item, key, props }) =>
+    item ? (
+      <animated.div
+        style={{
+          background: theme.background || "#fff",
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          ...props
+        }}
+        key={key}
+      >
+        <Parallax
+          ref={ref => (parallax.current = ref)}
+          style={{ background: `${theme.background}` }}
+          pages={2}
+        >
+          <ParallaxLayer offset={0} speed={1}>
+            <MenuOverlay
+              scrollSection={parallax}
+              changeTheme={changeTheme}
+              showMenu={showMenu}
+              close={() => toggleMenu(false)}
+            ></MenuOverlay>
+          </ParallaxLayer>
+          <ParallaxLayer offset={0} speed={0.5}>
+            <Container>
+              <div
+                style={{
+                  display: "flex",
+                  position: "relative",
+                  flexDirection: "column",
+                  height: "100vh"
+                }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    height: "80px",
+                    alignItems: "flex-end"
+                  }}
+                >
+                  <TakeBackButton
+                    click={() => togglePreload(true)}
+                  ></TakeBackButton>
+                  <Nav
+                    openOverlayMenu={() => toggleMenu(true)}
+                    disableLogo
+                    scrollSection={parallax}
+                    changeTheme={changeTheme}
+                  ></Nav>
+                </div>
+              </div>
+            </Container>
+          </ParallaxLayer>
+          <ParallaxLayer speed={0.2} offset={0.2}>
             <div
               style={{
                 width: "100%",
                 display: "flex",
-                justifyContent: "flex-end",
-                height: "80px",
-                alignItems: "flex-end"
+                justifyContent: "center"
               }}
             >
-              <TakeBackButton></TakeBackButton>
-              <Nav disableLogo changeTheme={changeTheme}></Nav>
+              <ProjectTitle color="#b19386">{project.title}</ProjectTitle>
             </div>
-          </div>
-        </Container>
-      </ParallaxLayer>
-      <ParallaxLayer speed={0.2} offset={0.2}>
-        <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
-          <ProjectTitle color="#b19386">{project.title}</ProjectTitle>
-        </div>
-      </ParallaxLayer>
-      <ParallaxLayer offset={0.4} speed={0.3}>
-        <ImageWrapper>
-          <ProjectImage src={project.img}></ProjectImage>
-        </ImageWrapper>
-      </ParallaxLayer>
-    </Parallax>
+          </ParallaxLayer>
+          <ParallaxLayer offset={0.4} speed={0.3}>
+            <ImageWrapper>
+              <ProjectImage src={project.img}></ProjectImage>
+            </ImageWrapper>
+          </ParallaxLayer>
+        </Parallax>
+      </animated.div>
+    ) : (
+      <div
+        style={{
+          background: theme.background || "#fff",
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0
+        }}
+        key={key}
+      ></div>
+    )
   );
 }
 
