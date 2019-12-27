@@ -97,7 +97,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
         <Parallax
           ref={ref => (parallax.current = ref)}
           style={{ background: `${theme.background}` }}
-          pages={w > 768 ? 2.15 : 2.46}
+          pages={w > 768 ? (h < 670 ? 2.3 : 2.15) : 2.46}
         >
           <ParallaxLayer offset={0} speed={1}>
             <MenuOverlay
@@ -175,7 +175,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
               marginLeft: w > 768 ? "50%" : "0%"
             }}
             offset={w > 768 ? 1 : 1.5}
-            speed={1.2}
+            speed={0.9}
           >
             <ProjectOtherInfo project={project}></ProjectOtherInfo>
           </ParallaxLayer>

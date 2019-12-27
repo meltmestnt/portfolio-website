@@ -35,8 +35,8 @@ function MainContent({ changeTheme, theme }) {
           : h <= 890
           ? 5.5
           : h <= 1000
-          ? 5
-          : 4.5
+          ? 5.3
+          : 5
       }
       ref={ref => (parallax.current = ref)}
     >
@@ -278,8 +278,8 @@ function MainContent({ changeTheme, theme }) {
             : h <= 890
             ? 5
             : h <= 1000
-            ? 4.5
-            : 4
+            ? 4.8
+            : 4.5
         }
         speed={0.2}
       >
