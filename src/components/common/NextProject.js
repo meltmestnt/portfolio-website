@@ -93,7 +93,9 @@ function NextProject({ project, scrollSection, click }) {
   const history = useHistory();
   const clicked = e => {
     e.preventDefault();
-    if (scrollSection.current) scrollSection.current.scrollTo(0);
+    if (scrollSection.current) {
+      scrollSection.current.scrollTo(0);
+    }
     setTimeout(() => {
       click();
       setTimeout(() => history.push(`/work/${project.id}`), 700);

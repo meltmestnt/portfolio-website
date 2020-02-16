@@ -98,7 +98,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
       >
         <Parallax
           ref={ref => (parallax.current = ref)}
-          style={{ background: `${theme.background}` }}
+          style={{ transition: "0.35s", background: `${theme.background}` }}
           pages={w > 768 ? (h < 670 ? 2.35 : 2.2) : 2.46}
         >
           <ParallaxLayer offset={0} speed={1}>

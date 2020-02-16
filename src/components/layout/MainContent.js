@@ -31,9 +31,12 @@ function MainContent({ changeTheme, theme }) {
   let parallax = React.useRef();
   const [showMenu, toggleMenu] = React.useState(false);
   const { w, h } = useDimensions();
+  const clicked = () => {
+    parallax.current.scrollTo(1);
+  };
   return (
     <Parallax
-      style={{ background: `${theme.background}` }}
+      style={{ transition: "0.35s", background: `${theme.background}` }}
       pages={
         h <= 580
           ? 8
@@ -51,7 +54,8 @@ function MainContent({ changeTheme, theme }) {
           ? 5.2
           : 4.5
       }
-      ref={parallax}
+      vertical
+      ref={ref => (parallax.current = ref)}
     >
       <ParallaxLayer offset={0} speed={1}>
         <MenuOverlay
@@ -97,7 +101,7 @@ function MainContent({ changeTheme, theme }) {
         offset={0.9}
         speed={2}
       >
-        <ScrollDown click={() => parallax.current.scrollTo(1)}></ScrollDown>
+        <ScrollDown click={clicked}></ScrollDown>
       </ParallaxLayer>
       <ParallaxLayer
         speed={1.5}

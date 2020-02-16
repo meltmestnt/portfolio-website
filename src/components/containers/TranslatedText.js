@@ -1,22 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import OverlayEffect from "./../common/OverlayEffect";
-import colorsObj from "./../../humbleColors";
-const colors = colorsObj.colors;
 function TranslatedText({ trKey, children, options = null, ...rest }) {
   const { t, i18n } = useTranslation();
+  const disableOverlay = React.useRef();
+  disableOverlay.current = false;
   const [animate, toggleAnimate] = React.useState(true);
   const [lastLng, changeLastLng] = React.useState(i18n.language);
   const [cachedText, setText] = React.useState(t(trKey, { ...options }));
-  const random = Math.floor(Math.random() * (colors.length - 1));
-  const color = colors[random];
   React.useEffect(() => {
     if (lastLng !== i18n.language) {
       changeLastLng(i18n.language);
       toggleAnimate(false);
+      disableOverlay.current = false;
       setTimeout(() => {
         toggleAnimate(true);
         setText(t(trKey, { ...options }));
+        disableOverlay.current = true;
       }, 800);
     }
   }, [i18n.language, lastLng, trKey, options, t]);
@@ -33,7 +33,7 @@ function TranslatedText({ trKey, children, options = null, ...rest }) {
       <OverlayEffect
         delay={Math.floor(Math.random() * 350)}
         disabled={animate}
-        color={color}
+        disableOverlay={disableOverlay}
       ></OverlayEffect>
       {children(cachedText, rest)}
     </div>

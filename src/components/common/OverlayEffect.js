@@ -6,7 +6,8 @@ function OverlayEffect({
   animate = null,
   disabled = null,
   delay = 0,
-  theme
+  theme,
+  disableOverlay
 }) {
   const [show, toggleShow] = React.useState(disabled ? false : true);
   const transitions = useTransition(show, null, {
@@ -41,8 +42,12 @@ function OverlayEffect({
   });
   React.useEffect(() => {
     if (disabled === true) toggleShow(false);
-    else if (disabled === false) setTimeout(() => toggleShow(true), delay);
-  }, [disabled, delay]);
+    else if (disabled === false)
+      setTimeout(() => {
+        if (disableOverlay.current) return;
+        toggleShow(true);
+      }, delay);
+  }, [disabled, delay, disableOverlay]);
   React.useEffect(() => {
     if (animate === true) toggleShow(false);
   }, [animate]);

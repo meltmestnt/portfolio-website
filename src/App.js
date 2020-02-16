@@ -31,7 +31,7 @@ function App() {
     from: { opacity: 0 },
     initial: { opacity: 1 },
     enter: { opacity: 1 },
-    leave: { opacity: 1 }
+    leave: { opacity: 0 }
   });
   const toggleTheme = () => changeTheme(theme === light ? dark : light);
   return (
@@ -41,7 +41,11 @@ function App() {
           item ? (
             <animated.div
               key={key}
-              style={{ background: theme.background || "#fff", ...props }}
+              style={{
+                transition: "0.35s",
+                background: theme.background || "#fff",
+                ...props
+              }}
             >
               <Preload off={() => togglePreload(false)}></Preload>
             </animated.div>
