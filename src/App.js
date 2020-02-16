@@ -15,7 +15,6 @@ import "./components/i18n";
 
 const MainContainer = styled.div`
   background: ${props => props.theme.background || "#EBEBEB"};
-  transition: 0.5s;
   width: 100vw;
   overflow-x: hidden;
   min-width: 100vw;
@@ -42,7 +41,6 @@ function App() {
             <animated.div
               key={key}
               style={{
-                transition: "0.35s",
                 background: theme.background || "#fff",
                 ...props
               }}

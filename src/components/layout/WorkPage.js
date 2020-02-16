@@ -81,7 +81,6 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
     }
   });
   const [showMenu, toggleMenu] = React.useState(false);
-  console.log(h, w);
   return transitions.map(({ item, key, props }) =>
     item ? (
       <animated.div

@@ -178,7 +178,6 @@ function Modal({ close, modal }) {
   }));
   React.useEffect(() => toggleModal(modal), [modal]);
   const { w, h } = useDimensions();
-  console.log(w, h);
   const transition = useTransition(modalShow, item => item, {
     from: {
       opacity: 0

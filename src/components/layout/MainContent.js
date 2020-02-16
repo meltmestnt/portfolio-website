@@ -36,7 +36,7 @@ function MainContent({ changeTheme, theme }) {
   };
   return (
     <Parallax
-      style={{ transition: "0.35s", background: `${theme.background}` }}
+      style={{ transition: "0.3s", background: `${theme.background}` }}
       pages={
         h <= 580
           ? 8
@@ -98,8 +98,8 @@ function MainContent({ changeTheme, theme }) {
       </ParallaxLayer>
       <ParallaxLayer
         style={{ zIndex: 9999, width: "auto", left: "50%" }}
-        offset={0.9}
-        speed={2}
+        offset={0.93}
+        speed={10}
       >
         <ScrollDown click={clicked}></ScrollDown>
       </ParallaxLayer>
