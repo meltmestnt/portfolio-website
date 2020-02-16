@@ -11,7 +11,18 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 35px;
-  padding-bottom: 25px;
+  width: 50%;
+  padding: 0px 10px 25px 10px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const LinkContainerFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 `;
 
 const SocialLink = styled.a`
@@ -26,9 +37,11 @@ function SocialLinks() {
   return (
     <Wrapper>
       {links.map(l => (
-        <Link padding="0px" key={l.title} margin="10px 15px" href={l.link}>
-          {l.title}
-        </Link>
+        <LinkContainerFlex>
+          <Link padding="0px" key={l.title} margin="10px 0px" href={l.link}>
+            {l.title}
+          </Link>
+        </LinkContainerFlex>
       ))}
     </Wrapper>
   );

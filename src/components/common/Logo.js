@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./../../img/logo_transparent.png";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const LogoImg = styled.img`
   width: 60px;
   height: 60px;
@@ -17,11 +17,16 @@ const LogoImg = styled.img`
   transition-delay: 0.5s;
   @media (max-width: 768px) {
     transform: translateY(30%);
+    margin-left: 0px;
   }
 `;
 
 function Logo({ inverted = false }) {
-  return <LogoImg inverted={inverted} src={logo}></LogoImg>;
+  return (
+    <Link to="/">
+      <LogoImg inverted={inverted} src={logo}></LogoImg>
+    </Link>
+  );
 }
 
 export default Logo;

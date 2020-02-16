@@ -8,6 +8,8 @@ import styled from "styled-components";
 import Link from "./../common/Link";
 import Modal from "./../containers/Modal";
 
+import { useTranslation } from "react-i18next";
+
 const LinksWrapper = styled.div`
   height: 100%;
   padding: 35px;
@@ -19,6 +21,7 @@ const LinksWrapper = styled.div`
 
 function MenuOverlay({ showMenu, close, scrollSection, changeTheme }) {
   const [modal, toggleModal] = React.useState(false);
+  const { t, i18n } = useTranslation();
   const [animateBack, setAnimateBack] = React.useState(false);
   const [main, setMain] = useSpring(() => ({
     from: {
@@ -55,6 +58,8 @@ function MenuOverlay({ showMenu, close, scrollSection, changeTheme }) {
     setTimes({ opacity: 1 });
     setMain({ opacity: 1, transform: "translateY(0%)" });
   };
+  const changeLang = () =>
+    i18n.changeLanguage(i18n.language.toLowerCase() === "ru" ? "en" : "ru");
   return ReactDOM.createPortal(
     showMenu ? (
       <div
@@ -120,6 +125,9 @@ function MenuOverlay({ showMenu, close, scrollSection, changeTheme }) {
                 </Link>
                 <Link color="#fff" click={() => animate(changeTheme)}>
                   Change Theme
+                </Link>
+                <Link color="#fff" click={() => animate(changeLang)}>
+                  {i18n.language.toUpperCase()}
                 </Link>
               </LinksWrapper>
               <SocialLinks enable={true} direction="row"></SocialLinks>

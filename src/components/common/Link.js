@@ -6,18 +6,25 @@ const LinkHover = styled.a`
   font-size: 1.3rem;
   position: relative;
   cursor: pointer;
+  font-weight: 700;
   color: ${props => (props.color ? props.color : props.theme.color)};
   transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 10px 5px;
+  line-height: 1rem;
 `;
 
 export const LinkWrapper = styled.span`
   position: relative;
   cursor: pointer;
   display: flex;
+  flex-basis: auto;
+  justify-content: center;
+  text-align: center;
   align-items: ${props => (props.noMargin ? "center" : "flex-end")};
-  height: ${props => (props.noMargin ? "100%" : "auto")};
-  padding: ${props =>
-    props.noMargin ? "0px" : props.padding ? props.padding : "10px 5px"};
+  height: auto;
   overflow: hidden;
   margin: ${props =>
     props.noMargin ? "0 10px" : props.margin ? props.margin : "10px 10px"};
@@ -39,9 +46,11 @@ function Link({
     config: config.wobbly,
     from: {
       width: "0%",
+      left: 0,
       transform: "translateX(0%)"
     },
     enter: {
+      left: 0,
       width: "100%"
     },
     leave: {

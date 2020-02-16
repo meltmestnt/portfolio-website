@@ -44,6 +44,7 @@ const InputWrapper = styled.div`
 const Label = styled.label`
   position: absolute;
   top: -13px;
+  font-weight: 700;
   color: #dadada;
   font-size: 0.95rem;
   left: 0;

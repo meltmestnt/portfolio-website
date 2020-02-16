@@ -7,7 +7,7 @@ const I = styled.a`
   text-decoration: none;
   position: relative;
   transition: 0.5s;
-  width: 64px;
+
   display: flex;
   justify-content: center;
   height: 64px;
@@ -53,7 +53,10 @@ function Icon({ children, title, color, defaultColor }) {
           left: "50%",
           transform: `translate(-50%, 200%)`,
           width: "100%",
-          textAlign: " center",
+
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
           ...hover
         }}
       >

@@ -5,6 +5,10 @@ import Logo from "./../common/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdjust } from "@fortawesome/free-solid-svg-icons";
 import Modal from "./../containers/Modal";
+import { useTranslation } from "react-i18next";
+import TranslatedText from "./../containers/TranslatedText";
+import Russia from "./../../img/russia.svg";
+import UK from "./../../img/united-kingdom.svg";
 const Nav = styled.nav`
   display: flex;
   width: ${props => (props.disableLogo ? "auto" : "100%")};
@@ -14,8 +18,9 @@ const Nav = styled.nav`
   position: relative;
   z-index: 99999;
   padding: 0px;
+  padding-left: 15px;
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 12px 15px;
   }
 `;
 
@@ -58,12 +63,22 @@ const Third = styled(BurgerLine)`
   width: 40%;
 `;
 
+const Img = styled.img`
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  overflow: hidden;
+  position: relative;
+  opacity: 0.7;
+`;
+
 function Navigation({
   changeTheme,
   scrollSection,
   openOverlayMenu,
   disableLogo = false
 }) {
+  const { t, i18n } = useTranslation();
   const [modal, toggleModal] = React.useState(false);
 
   const scrollIntoView = () => {
@@ -71,16 +86,39 @@ function Navigation({
       scrollSection.current.scrollTo(1);
     }
   };
+  const lang =
+    i18n.language.toLowerCase() === "ru" ? (
+      <Img src={Russia} alt="" />
+    ) : (
+      <Img src={UK} alt="" />
+    );
+  const changeLang = () =>
+    i18n.changeLanguage(i18n.language.toLowerCase() === "ru" ? "en" : "ru");
   const close = () => toggleModal(false);
   return (
     <Nav disableLogo={disableLogo}>
       {!disableLogo && <Logo></Logo>}
       <LinksWrapper>
-        <Link click={scrollIntoView}>Work</Link>
-        <Link click={() => toggleModal(true)}>Contact</Link>
+        <TranslatedText trKey="work">
+          {(text, rest) => (
+            <Link {...rest} click={scrollIntoView}>
+              {text}
+            </Link>
+          )}
+        </TranslatedText>
+
+        <TranslatedText trKey="contact">
+          {(text, rest) => (
+            <Link {...rest} click={() => toggleModal(true)}>
+              {text}
+            </Link>
+          )}
+        </TranslatedText>
+
         <Link click={changeTheme}>
           <FontAwesomeIcon icon={faAdjust} />
         </Link>
+        <Link click={changeLang}>{lang}</Link>
       </LinksWrapper>
       <Burger onClick={openOverlayMenu}>
         <First></First>

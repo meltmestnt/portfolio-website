@@ -5,6 +5,7 @@ const H = styled.h2`
   color: ${props => props.theme.color};
   font-size: 2.5rem;
   margin: 25px 0px;
+  text-align: center;
 `;
 
 function Title({ children }) {

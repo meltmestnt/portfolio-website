@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Subtitle from "./Subtitle";
 import Link from "./CVLink";
 import { withTheme } from "styled-components";
+import TranslatedText from "./../containers/TranslatedText";
 const Text = styled.p`
   color: ${props => props.theme.color || "#fff"};
   font-family: "Libre Baskerville", sans-serif !important;
@@ -16,7 +17,13 @@ const Text = styled.p`
 function ProjectOtherInfo({ project, theme }) {
   return (
     <Wrapper>
-      <ProjectTitle themed>Other info</ProjectTitle>
+      <TranslatedText trKey="project.otherTitle">
+        {(text, rest) => (
+          <ProjectTitle {...rest} themed>
+            {text}
+          </ProjectTitle>
+        )}
+      </TranslatedText>
       <Wrapper>
         {project.icons.map(I => (
           <I key={I} color={theme.color}></I>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "./../common/Button";
 import Modal from "./../containers/Modal";
 import OverlayEffect from "./../common/OverlayEffect";
+import TranslatedText from "./TranslatedText";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,7 +21,7 @@ const Header = styled.h1`
   font-size: 4rem;
   margin: 10px;
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: 2.7rem;
   }
 `;
 
@@ -33,7 +35,7 @@ export const SubHeader = styled.p`
   font-weight: 300;
   font-family: "Libre Baskerville", sans-serif !important;
   @media (max-width: 768px) {
-    font-size: ${props => props.responsiveSize || props.customSize || "2rem"};
+    font-size: ${props => props.responsiveSize || props.customSize || "1.5rem"};
   }
 `;
 
@@ -43,16 +45,24 @@ function Signature(props) {
   return (
     <Wrapper>
       <div style={{ position: "relative", margin: "10px 0px" }}>
-        <Header>Denis Bakurov</Header>
+        <TranslatedText trKey="signature.me">
+          {(text, rest) => <Header {...rest}>{text}</Header>}
+        </TranslatedText>
         <OverlayEffect></OverlayEffect>
       </div>
       <div style={{ position: "relative", margin: "10px 0px" }}>
-        <SubHeader>Front-end developer</SubHeader>
-        <OverlayEffect></OverlayEffect>
+        <TranslatedText trKey="signature.occupation">
+          {(text, rest) => <SubHeader {...rest}>{text}</SubHeader>}
+        </TranslatedText>
+        <OverlayEffect duration={200}></OverlayEffect>
       </div>
       <div style={{ position: "relative", margin: "10px 0px" }}>
-        <OverlayEffect></OverlayEffect>
-        <Button click={() => toggleModal(true)}>About me</Button>
+        <OverlayEffect duration={350}></OverlayEffect>
+        <TranslatedText trKey="signature.about">
+          {(text, rest) => (
+            <Button click={() => toggleModal(true)}>{text}</Button>
+          )}
+        </TranslatedText>
       </div>
 
       {modal && <Modal modal={modal} close={close}></Modal>}

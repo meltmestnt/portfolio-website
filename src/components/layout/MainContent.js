@@ -12,12 +12,25 @@ import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
 import WorkContent from "./WorkContent";
 import useDimensions from "./../../utils/useDimensions";
 import MenuOverlay from "./../containers/MenuOverlay";
-import { animated, config, useTransition } from "react-spring";
+import ScrollDown from "./../common/Icons/ScrollDown";
+import CVLink from "./../common/CVLink";
+import styled from "styled-components";
+import TranslatedText from "./../containers/TranslatedText";
+const HeaderGit = styled.p`
+  color: ${props => props.theme.color};
+  font-size: 11px;
+  font-family: "Libre Baskerville", sans-serif;
+  margin: 0px 5px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0.5;
+`;
+
 function MainContent({ changeTheme, theme }) {
   let parallax = React.useRef();
   const [showMenu, toggleMenu] = React.useState(false);
   const { w, h } = useDimensions();
-  const transitions = useTransition();
   return (
     <Parallax
       style={{ background: `${theme.background}` }}
@@ -27,7 +40,7 @@ function MainContent({ changeTheme, theme }) {
           : h <= 640
           ? 7
           : h <= 670
-          ? 6.5
+          ? 7
           : h <= 731
           ? 6.5
           : h <= 840
@@ -35,10 +48,10 @@ function MainContent({ changeTheme, theme }) {
           : h <= 890
           ? 5.5
           : h <= 1000
-          ? 5.3
-          : 5
+          ? 5.2
+          : 4.5
       }
-      ref={ref => (parallax.current = ref)}
+      ref={parallax}
     >
       <ParallaxLayer offset={0} speed={1}>
         <MenuOverlay
@@ -77,6 +90,35 @@ function MainContent({ changeTheme, theme }) {
             ></Nav>
             <Signature></Signature>
           </div>
+        </Container>
+      </ParallaxLayer>
+      <ParallaxLayer
+        style={{ zIndex: 9999, width: "auto", left: "50%" }}
+        offset={0.9}
+        speed={2}
+      >
+        <ScrollDown click={() => parallax.current.scrollTo(1)}></ScrollDown>
+      </ParallaxLayer>
+      <ParallaxLayer
+        speed={1.5}
+        offset={0.97}
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <Container>
+          <HeaderGit style={{ padding: "0px 15px" }}>
+            <TranslatedText trKey="portfolioGit">
+              {(text, ...resrt) => (
+                <span style={{ marginRight: "5px" }}>{text}</span>
+              )}
+            </TranslatedText>
+
+            <CVLink
+              href="https://github.com/meltmestnt/portfolio-website"
+              fontSize="11px"
+              themed
+              text="github"
+            ></CVLink>
+          </HeaderGit>
         </Container>
       </ParallaxLayer>
       <ParallaxLayer
@@ -270,7 +312,7 @@ function MainContent({ changeTheme, theme }) {
             : h <= 640
             ? 6.5
             : h <= 670
-            ? 6
+            ? 6.5
             : h <= 731
             ? 6
             : h <= 840
@@ -279,7 +321,7 @@ function MainContent({ changeTheme, theme }) {
             ? 5
             : h <= 1000
             ? 4.8
-            : 4.5
+            : 4.1
         }
         speed={0.2}
       >

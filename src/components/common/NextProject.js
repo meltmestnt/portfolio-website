@@ -6,6 +6,7 @@ import Subtitle from "./Subtitle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import TranslatedText from "./../containers/TranslatedText";
 const NextProjectLink = styled.a`
   text-decoration: none;
   width: 100%;
@@ -131,9 +132,13 @@ function NextProject({ project, scrollSection, click }) {
       ></animated.div>
       <Container>
         <Left>
-          <Subtitle margin="10px 0px" fontSize="0.95rem">
-            NEXT WORK
-          </Subtitle>
+          <TranslatedText trKey="project.next">
+            {(text, rest) => (
+              <Subtitle {...rest} margin="10px 0px" fontSize="0.95rem">
+                {text}
+              </Subtitle>
+            )}
+          </TranslatedText>
           <Title color={color}>{project.title}</Title>
         </Left>
         <Right>

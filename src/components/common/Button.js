@@ -3,13 +3,15 @@ import styled, { withTheme } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import { useSpring, animated, config } from "react-spring";
-const CoolButton = styled.a`
+const CoolButton = styled.button`
   background: linear-gradient(270deg, #f06449, #ef3636);
   color: #fff;
+  outline: none;
+  border: none;
   padding: 20px 30px;
-  display: inline;
-  font-size: 0.875rem;
-
+  display: inline-block;
+  font-size: 0.97rem;
+  font-weight: 700;
   overflow: hidden;
   position: relative;
   top: 0;
@@ -53,15 +55,14 @@ function Button({ children, theme, disabled = false, click = null }) {
     <div
       style={{
         display: "flex",
-        margin: "20px 10px",
+        margin: "10px 10px",
         position: "relative"
       }}
     >
       <div
         style={{
           display: "inline-block",
-          position: "relative",
-          margin: "15px 0px"
+          position: "relative"
         }}
       >
         <CoolButton

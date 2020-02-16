@@ -7,8 +7,12 @@ import MainContent from "./components/layout/MainContent";
 import WorkContent from "./components/layout/WorkContent";
 import styled, { ThemeProvider } from "styled-components";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import NotFound from "./components/layout/NotFound";
 import themes from "./theme";
 import routes from "./components/routes";
+
+import "./components/i18n";
+
 const MainContainer = styled.div`
   background: ${props => props.theme.background || "#EBEBEB"};
   transition: 0.5s;
@@ -27,7 +31,7 @@ function App() {
     from: { opacity: 0 },
     initial: { opacity: 1 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 }
+    leave: { opacity: 1 }
   });
   const toggleTheme = () => changeTheme(theme === light ? dark : light);
   return (
@@ -65,6 +69,7 @@ function App() {
                       }
                     </Route>
                   ))}
+                  <Route component={NotFound}></Route>
                 </Switch>
               </ThemeProvider>
             </animated.div>

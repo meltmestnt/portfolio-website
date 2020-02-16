@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ProjectTitle from "./ProjectTitle";
 import ProjectImage from "./ProjectImage";
 import { SubHeader } from "./../containers/Signature";
-import Button from "./Button";
 import { useSpring, animated } from "react-spring";
 import PreloadInContainer from "./../containers/PreloadInContainer";
 import Spinner from "./Spinner";
@@ -12,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import OverlayEffect from "./OverlayEffect";
 import { useHistory } from "react-router-dom";
 import LinkButton from "./LinkButton";
+import TranslatedText from "./../containers/TranslatedText";
 const ProjectLink = styled.a`
   width: 80%;
   margin: 0 auto;
@@ -48,7 +48,7 @@ function ProjectCase({ project, scroll }) {
   const history = useHistory();
 
   const [animateBack, setAnimateBack] = React.useState(false);
-
+  const timerId = React.useRef();
   const [ref, inView, entry] = useInView({
     threshold: 0.1
   });
@@ -66,9 +66,15 @@ function ProjectCase({ project, scroll }) {
   }));
   const animate = () => {
     setMask({ width: "100%" });
-    setTimeout(() => setText({ transform: `scale(1.1,1.1)` }), 500);
+    timerId.current = setTimeout(
+      () => setText({ transform: `scale(1.1,1.1)` }),
+      500
+    );
   };
   const cancel = () => {
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+    }
     setMask({ width: "0%" });
     setText({ transform: `scale(1,1)` });
   };
@@ -119,9 +125,9 @@ function ProjectCase({ project, scroll }) {
       onMouseLeave={cancel}
       onMouseEnter={animate}
       onClick={clicked}
-      href={project.ref}
+      href={`/work/${project.id}`}
     >
-      <OverlayEffect animate={inView}></OverlayEffect>
+      {/* <OverlayEffect animate={inView}></OverlayEffect> */}
       <ProjectImage src={project.img}></ProjectImage>
       <animated.div
         style={{
@@ -131,10 +137,28 @@ function ProjectCase({ project, scroll }) {
         }}
       >
         <ProjectTitle>{project.title}</ProjectTitle>
-        <SubHeader customSize="1.5rem" responsiveSize="1rem" customColor="#fff">
-          {project.subtitle}
-        </SubHeader>
-        <LinkButton href={project.ref}>Case Study</LinkButton>
+        <TranslatedText
+          trKey="shortdesc"
+          options={{ subtitle: project.subtitle, shortDesc: project.shortDesc }}
+        >
+          {(text, rest) => (
+            <SubHeader
+              customSize="1.5rem"
+              responsiveSize="1rem"
+              customColor="#fff"
+              {...rest}
+            >
+              {text}
+            </SubHeader>
+          )}
+        </TranslatedText>
+        <TranslatedText trKey="more">
+          {(text, rest) => (
+            <LinkButton {...rest} href={`/work/${project.id}`}>
+              {text}
+            </LinkButton>
+          )}
+        </TranslatedText>
       </animated.div>
       <animated.div
         style={{

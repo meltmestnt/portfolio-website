@@ -1,40 +1,64 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { animated, useTransition, config } from "react-spring";
-
-function OverlayEffect({ duration = 100, animate = null }) {
-  const [show, toggleShow] = React.useState(true);
+function OverlayEffect({
+  duration = 100,
+  animate = null,
+  disabled = null,
+  delay = 0,
+  theme
+}) {
+  const [show, toggleShow] = React.useState(disabled ? false : true);
   const transitions = useTransition(show, null, {
-    from: { width: "100%", right: 0 },
-    config: config.slow,
-    enter: {
-      width: "100%",
-      transform: `translateX(0%)`,
-      right: 0
-    },
-    leave: {
-      width: "0%",
-      right: 0,
-      transform: `translateX(100%)`
-    }
+    from:
+      disabled === null
+        ? { width: "100%", right: 0 }
+        : { width: "0%", left: 0 },
+    config: disabled === null ? config.slow : config.stiff,
+    enter:
+      disabled === null
+        ? {
+            width: "100%",
+            transform: `translateX(0%)`,
+            right: 0
+          }
+        : {
+            width: "100%",
+            transform: `translateX(0%)`,
+            left: 0
+          },
+    leave:
+      disabled === null
+        ? {
+            width: "0%",
+            right: 0,
+            transform: `translateX(100%)`
+          }
+        : {
+            left: 0,
+            transform: `translateX(100%)`
+          }
   });
-
+  React.useEffect(() => {
+    if (disabled === true) toggleShow(false);
+    else if (disabled === false) setTimeout(() => toggleShow(true), delay);
+  }, [disabled, delay]);
   React.useEffect(() => {
     if (animate === true) toggleShow(false);
   }, [animate]);
   React.useEffect(() => {
     let id;
-    if (animate === null) {
+    if (animate === null && disabled === null) {
       id = setTimeout(() => toggleShow(false), duration);
     }
 
     return () => clearTimeout(id);
   }, []);
-
   return transitions.map(
     ({ item, key, props }) =>
       item && (
         <div
+          key={key}
           style={{
             position: "absolute",
             overflow: "hidden",
@@ -51,8 +75,9 @@ function OverlayEffect({ duration = 100, animate = null }) {
               top: 0,
               right: 0,
               height: "100%",
-              background: " #fff",
+              background: theme.background,
               zIndex: 999999,
+              opacity: 1,
               ...props
             }}
           ></animated.div>
@@ -61,4 +86,4 @@ function OverlayEffect({ duration = 100, animate = null }) {
   );
 }
 
-export default OverlayEffect;
+export default withTheme(OverlayEffect);

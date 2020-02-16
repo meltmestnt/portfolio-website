@@ -17,6 +17,7 @@ import ProjectDescription from "./../common/ProjectDescription";
 import ProjectOtherInfo from "./../common/ProjectOtherInfo";
 import useDimensions from "./../../utils/useDimensions";
 import Footer from "./Footer";
+import NotFound from "./NotFound";
 import NextProject from "./../common/NextProject";
 
 const ImageWrapper = styled.div`
@@ -47,25 +48,14 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
   const { id } = useParams();
   let parallax = React.useRef();
   const { w, h } = useDimensions();
-  const [showContent, toggleContent] = React.useState(false);
-  const transitions = useTransition(showContent, null, {
-    delay: 800,
-    from: {
-      opacity: 0
-    },
-    enter: {
-      opacity: 1
-    },
-    leave: {
-      opacity: 0
-    }
-  });
-  React.useEffect(() => {
+  // const [showContent, toggleContent] = React.useState(false);
+
+  /* React.useEffect(() => {
     if (id) {
       console.log("content show");
-      setTimeout(() => toggleContent(true), 650);
+      setTimeout(() => toggleContent(true), 350);
     }
-  });
+  }); */
   const [{ project, nextProject }, changeProject] = React.useState(() => {
     let index = 0;
     return {
@@ -78,7 +68,20 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
       nextProject: projects.find((p, i) => i === index)
     };
   });
+  const transitions = useTransition(project, null, {
+    delay: 800,
+    from: {
+      opacity: 0
+    },
+    enter: {
+      opacity: 1
+    },
+    leave: {
+      opacity: 1
+    }
+  });
   const [showMenu, toggleMenu] = React.useState(false);
+  console.log(h, w);
   return transitions.map(({ item, key, props }) =>
     item ? (
       <animated.div
@@ -92,12 +95,11 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
           left: 0,
           ...props
         }}
-        key={key}
       >
         <Parallax
           ref={ref => (parallax.current = ref)}
           style={{ background: `${theme.background}` }}
-          pages={w > 768 ? (h < 670 ? 2.3 : 2.15) : 2.46}
+          pages={w > 768 ? (h < 670 ? 2.35 : 2.2) : 2.46}
         >
           <ParallaxLayer offset={0} speed={1}>
             <MenuOverlay
@@ -157,7 +159,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
           <ParallaxLayer offset={0.4} speed={0.3}>
             <ImageWrapper>
               <ProjectImage src={project.img}></ProjectImage>
-              <OverlayEffect></OverlayEffect>
+              <OverlayEffect duration={250}></OverlayEffect>
             </ImageWrapper>
           </ParallaxLayer>
           <ParallaxLayer
@@ -175,7 +177,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
               marginLeft: w > 768 ? "50%" : "0%"
             }}
             offset={w > 768 ? 1 : 1.5}
-            speed={0.9}
+            speed={0.75}
           >
             <ProjectOtherInfo project={project}></ProjectOtherInfo>
           </ParallaxLayer>
@@ -200,18 +202,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
         </Parallax>
       </animated.div>
     ) : (
-      <div
-        key={key}
-        style={{
-          background: theme.background || "#fff",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          top: 0,
-          left: 0
-        }}
-        key={key}
-      ></div>
+      <NotFound></NotFound>
     )
   );
 }

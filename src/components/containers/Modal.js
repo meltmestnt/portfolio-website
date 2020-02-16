@@ -6,18 +6,14 @@ import useDimensions from "./../../utils/useDimensions";
 import ModalTitle from "./../common/ModalTitle";
 import ModalSubtitle from "./../common/ModalSubtitle";
 import ModalDescription from "./../common/ModalDescription";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import CloseButton from "./../common/CloseButton";
 import CVLink from "./../common/CVLink";
 import PreloadInContainer from "./PreloadInContainer";
 import Spinner from "./../common/Spinner";
-import {
-  faReact,
-  faVuejs,
-  faJs,
-  faHtml5
-} from "@fortawesome/free-brands-svg-icons";
-import Icon from "./../common/Icon";
+import TranslatedText from "./TranslatedText";
+
+import { ReactIcon, VueIcon, JsIcon, HTMLIcon } from "./../common/Icons";
 import ModalForm from "./ModalForm";
 const ModalOverflow = styled.div`
   position: fixed;
@@ -109,7 +105,7 @@ const RightContainer = styled(ModalContainer)`
   background-color: rgba(28, 29, 37, 0.985);
 `;
 
-export const ReactIcon = ({ color }) => (
+/* export const ReactIcon = ({ color }) => (
   <Icon title="React" defaultColor={color} color="#18dcff">
     <FontAwesomeIcon icon={faReact}></FontAwesomeIcon>
   </Icon>
@@ -128,7 +124,7 @@ export const HTMLIcon = ({ color }) => (
   <Icon title="HTML" defaultColor={color} color="#ff3838">
     <FontAwesomeIcon icon={faHtml5}></FontAwesomeIcon>
   </Icon>
-);
+); */
 
 const IconsWrapper = styled.div`
   display: flex;
@@ -142,6 +138,7 @@ function Modal({ close, modal }) {
   const [containers, toggleContainers] = React.useState(false);
   const [modalShow, toggleModal] = React.useState(modal);
   const [showFeedback, setFeedback] = React.useState("");
+
   const [feedbackProps, setFeedbackProps] = useSpring(() => ({
     from: {
       opacity: 0,
@@ -181,18 +178,19 @@ function Modal({ close, modal }) {
   }));
   React.useEffect(() => toggleModal(modal), [modal]);
   const { w, h } = useDimensions();
+  console.log(w, h);
   const transition = useTransition(modalShow, item => item, {
     from: {
       opacity: 0
     },
-    enter: {
-      opacity: 1
+    enter: item => async (next, cancel) => {
+      await next({ opacity: 1 });
+      toggleContainers(true);
     },
     leave: {
       opacity: 0
     },
-    config: config.stiff,
-    onRest: () => toggleContainers(true)
+    config: config.stiff
   });
   const left = useTransition(containers, item => item, {
     delay: 100,
@@ -204,19 +202,23 @@ function Modal({ close, modal }) {
       transform: `translateY(-100%)`,
       left: 0
     },
-    enter: {
-      opacity: 1,
-      transform: `translateY(0%)`,
-      left: 0
+    enter: item => async (next, cancel) => {
+      await next({
+        opacity: 1,
+        transform: `translateY(0%)`,
+        left: 0
+      });
+      if (item)
+        setShadow({
+          boxShadow: `0px 20px 80px 0px rgba(0, 0, 0, 0.55)`
+        });
     },
     leave: {
       opacity: 0.5,
       transform: `translateY(-100%)`,
       left: 0
     },
-    config: { mass: 5, friction: 70, tension: 450 },
-    onRest: () =>
-      setShadow({ boxShadow: `0px 20px 80px 0px rgba(0, 0, 0, 0.55)` })
+    config: { mass: 5, friction: 70, tension: 450 }
   });
   const right = useTransition(containers, item => item, {
     delay: 200,
@@ -228,10 +230,16 @@ function Modal({ close, modal }) {
       transform: `translateY(100%)`,
       right: 0
     },
-    enter: {
-      opacity: 1,
-      transform: `translateY(0%)`,
-      right: 0
+    enter: item => async (next, cancel) => {
+      await next({
+        opacity: 1,
+        transform: `translateY(0%)`,
+        right: 0
+      });
+      if (item)
+        setShadow({
+          boxShadow: `0px 20px 80px 0px rgba(0, 0, 0, 0.55)`
+        });
     },
     leave: {
       opacity: 0.5,
@@ -275,7 +283,7 @@ function Modal({ close, modal }) {
                   overflow: "hidden",
                   width: "100%",
                   marginLeft: "auto",
-
+                  boxShadow: `0px 0px 0px 0px rgba(0,0,0,0)`,
                   height: `${w <= 768 ? "100%" : "90%"}`,
                   position: "relative",
                   zIndex: 999999,
@@ -334,25 +342,31 @@ function Modal({ close, modal }) {
                                       }}
                                     >
                                       {showFeedback === "success" ? (
-                                        <FeedbackMessage>
-                                          "The message was sent successfully!"
-                                        </FeedbackMessage>
+                                        <TranslatedText trKey="email.success">
+                                          {(text, rest) => (
+                                            <FeedbackMessage {...rest}>
+                                              {text}
+                                            </FeedbackMessage>
+                                          )}
+                                        </TranslatedText>
                                       ) : (
-                                        <FeedbackMessage>
-                                          "Oops! Message was not sent. Please,
-                                          try again"
-                                        </FeedbackMessage>
+                                        <TranslatedText trKey="email.error">
+                                          {(text, rest) => (
+                                            <FeedbackMessage {...rest}>
+                                              {text}
+                                            </FeedbackMessage>
+                                          )}
+                                        </TranslatedText>
                                       )}
                                     </animated.div>
                                   </animated.div>
                                 )}
                                 <div
                                   style={{
-                                    width: "100%",
                                     display: "flex",
-                                    padding: 55,
-                                    paddingBottom: 0,
-                                    justifyContent: "flex-end"
+                                    position: "absolute",
+                                    top: 25,
+                                    right: 25
                                   }}
                                 >
                                   <CloseButton click={animateClose} />
@@ -363,15 +377,24 @@ function Modal({ close, modal }) {
                                     alignItems: "flex-start",
                                     justifyContent: "center",
                                     textAlign: "left",
-                                    padding: 55,
-
+                                    padding: "55px 40px 0px 40px",
+                                    paddingTop: h < 680 ? "15px" : "55px",
                                     width: "100%"
                                   }}
                                 >
-                                  <ModalTitle>Let's talk.</ModalTitle>
-                                  <ModalSubtitle>
-                                    Freelance projects, work or even meeting!
-                                  </ModalSubtitle>
+                                  <TranslatedText trKey="form.talk">
+                                    {(text, rest) => (
+                                      <ModalTitle {...rest}>{text}</ModalTitle>
+                                    )}
+                                  </TranslatedText>
+                                  <TranslatedText trKey="form.more">
+                                    {(text, rest) => (
+                                      <ModalSubtitle {...rest}>
+                                        {text}
+                                      </ModalSubtitle>
+                                    )}
+                                  </TranslatedText>
+
                                   <ModalForm
                                     setFeedback={result => {
                                       setFeedback(result);
@@ -394,39 +417,47 @@ function Modal({ close, modal }) {
                                     alignItems: "flex-start",
                                     justifyContent: "center",
                                     textAlign: "left",
-                                    padding: 55
+                                    padding: "55px 40px 0px 40px"
                                   }}
                                 >
                                   <div
                                     style={{
                                       position: "absolute",
                                       left: 0,
-                                      bottom: `${w < 768 ? "93%" : "0px"}`,
-                                      padding: `${w <= 768 ? "20px" : "45px"}`
+                                      bottom: `${w < 768 ? "90%" : "0px"}`,
+                                      padding: `20px`
                                     }}
                                   >
                                     <CVLink color="#1c1d25"></CVLink>
                                   </div>
-                                  <ModalTitle>About me.</ModalTitle>
-                                  <ModalSubtitle>
-                                    Front-end developer
-                                  </ModalSubtitle>
-                                  <ModalDescription>
-                                    I'm Denis Bakurov, a 19-year-old{" "}
-                                    <strong>Front-end developer </strong>
-                                    from Odessa, Ukraine. I'm{" "}
-                                    <strong>passionate</strong> about web
-                                    development especially about{" "}
-                                    <strong>frontend</strong>. I like to create{" "}
-                                    <strong>smart </strong>
-                                    user interfaces and develop{" "}
-                                    <strong>
-                                      full and complex web applications
-                                    </strong>
-                                    . When not working or fooling with code, I
-                                    study in Odessa National Polytechnic
-                                    University.
-                                  </ModalDescription>
+                                  <TranslatedText trKey="signature.about">
+                                    {(text, rest) => (
+                                      <ModalTitle {...rest}>{text}</ModalTitle>
+                                    )}
+                                  </TranslatedText>
+                                  <TranslatedText trKey="signature.occupation">
+                                    {(text, rest) => (
+                                      <ModalSubtitle {...rest}>
+                                        {text}
+                                      </ModalSubtitle>
+                                    )}
+                                  </TranslatedText>
+                                  <TranslatedText
+                                    trKey="description"
+                                    options={{
+                                      interpolation: { escapeValue: false }
+                                    }}
+                                  >
+                                    {(text, rest) => (
+                                      <ModalDescription {...rest}>
+                                        <span
+                                          dangerouslySetInnerHTML={{
+                                            __html: text
+                                          }}
+                                        ></span>
+                                      </ModalDescription>
+                                    )}
+                                  </TranslatedText>
                                 </div>
                                 <IconsWrapper>
                                   <ReactIcon color="black"></ReactIcon>
