@@ -19,7 +19,7 @@ const Header = styled.h1`
   transition: 0.5s;
   transition-delay: 0.7s;
   font-size: 4rem;
-  margin: 10px;
+  margin: 0px 10px;
   @media (max-width: 768px) {
     font-size: 2.7rem;
   }
@@ -35,7 +35,8 @@ export const SubHeader = styled.p`
   font-weight: 300;
   font-family: "Libre Baskerville", sans-serif !important;
   @media (max-width: 768px) {
-    font-size: ${props => props.responsiveSize || props.customSize || "1.5rem"};
+    font-size: ${props => props.responsiveSize || props.customSize || "1.2rem"};
+    font-weight: 100;
   }
 `;
 

@@ -1,7 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import OverlayEffect from "./../common/OverlayEffect";
-function TranslatedText({ trKey, children, options = null, ...rest }) {
+import { withTheme } from "styled-components";
+function TranslatedText({
+  trKey,
+  children,
+  options = null,
+  alignItems = "flex-end",
+  theme,
+  ...rest
+}) {
   const { t, i18n } = useTranslation();
   const disableOverlay = React.useRef();
   disableOverlay.current = false;
@@ -26,7 +34,7 @@ function TranslatedText({ trKey, children, options = null, ...rest }) {
         margin: "0px 3px 0px 3px",
         overflowX: "hidden",
         display: "flex",
-        alignItems: "flex-end",
+        alignItems,
         position: "relative"
       }}
     >
@@ -34,10 +42,11 @@ function TranslatedText({ trKey, children, options = null, ...rest }) {
         delay={Math.floor(Math.random() * 350)}
         disabled={animate}
         disableOverlay={disableOverlay}
+        color={theme.background}
       ></OverlayEffect>
       {children(cachedText, rest)}
     </div>
   );
 }
 
-export default TranslatedText;
+export default withTheme(TranslatedText);

@@ -39,7 +39,7 @@ const OverlapText = styled.h1`
   font-size: 190px;
   position: absolute;
   opacity: 0.07;
-  font-family: League Spartan, Helvetica, Arial, sans-serif;
+  font-family: "League Spartan", "Helvetica", "Arial", sans-serif;
   z-index: 0;
 `;
 

@@ -27,7 +27,7 @@ const Nav = styled.nav`
 const LinksWrapper = styled.div`
   display: flex;
   height: 100%;
-  align-items: flex-end;
+  align-items: center;
   @media (max-width: 768px) {
     display: none;
   }

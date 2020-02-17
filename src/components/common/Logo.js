@@ -23,7 +23,10 @@ const LogoImg = styled.img`
 
 function Logo({ inverted = false }) {
   return (
-    <Link to="/">
+    <Link
+      to="/"
+      style={{ height: "100%", display: "flex", alignItems: "center" }}
+    >
       <LogoImg inverted={inverted} src={logo}></LogoImg>
     </Link>
   );

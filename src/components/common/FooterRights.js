@@ -12,7 +12,7 @@ const Rights = styled.p`
 function FooterRights(props) {
   return (
     <Rights>
-      © 2019 Denis Bakurov <br></br>
+      © {new Date().getFullYear()} Denis Bakurov <br></br>
       <a
         href="mailto:beddenis13@gmail.com?subject=Subject&body=message%20goes%20here"
         style={{ textDecoration: "none", color: "white" }}

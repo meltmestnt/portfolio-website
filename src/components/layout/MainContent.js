@@ -83,7 +83,8 @@ function MainContent({ changeTheme, theme }) {
               display: "flex",
               position: "relative",
               flexDirection: "column",
-              height: "100vh"
+              height: "100vh",
+              padding: "10px 0px"
             }}
           >
             <SocialLinks></SocialLinks>
@@ -108,22 +109,20 @@ function MainContent({ changeTheme, theme }) {
         offset={0.97}
         style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        <Container>
-          <HeaderGit style={{ padding: "0px 15px" }}>
-            <TranslatedText trKey="portfolioGit">
-              {(text, ...resrt) => (
-                <span style={{ marginRight: "5px" }}>{text}</span>
-              )}
-            </TranslatedText>
+        <HeaderGit style={{ padding: "0px 15px" }}>
+          <TranslatedText alignItems="flex-start" trKey="portfolioGit">
+            {(text, ...resrt) => (
+              <span style={{ marginRight: "5px" }}>{text}</span>
+            )}
+          </TranslatedText>
 
-            <CVLink
-              href="https://github.com/meltmestnt/portfolio-website"
-              fontSize="11px"
-              themed
-              text="github"
-            ></CVLink>
-          </HeaderGit>
-        </Container>
+          <CVLink
+            href="https://github.com/meltmestnt/portfolio-website"
+            fontSize="11px"
+            themed
+            text="github"
+          ></CVLink>
+        </HeaderGit>
       </ParallaxLayer>
       <ParallaxLayer
         style={{

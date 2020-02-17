@@ -15,7 +15,12 @@ function TakeBackButton({ click }) {
   return (
     <RouteLink
       onClick={clicked}
-      style={{ textDecoration: "none", height: "auto" }}
+      style={{
+        textDecoration: "none",
+        height: "100%",
+        display: "flex",
+        alignItems: "center"
+      }}
       to="/"
     >
       <TranslatedText trKey="back">

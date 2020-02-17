@@ -7,7 +7,8 @@ function OverlayEffect({
   disabled = null,
   delay = 0,
   theme,
-  disableOverlay
+  disableOverlay,
+  color = "#fff"
 }) {
   const [show, toggleShow] = React.useState(disabled ? false : true);
   const transitions = useTransition(show, null, {
@@ -80,7 +81,7 @@ function OverlayEffect({
               top: 0,
               right: 0,
               height: "100%",
-              background: theme.background,
+              background: color,
               zIndex: 999999,
               opacity: 1,
               ...props

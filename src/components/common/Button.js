@@ -13,6 +13,8 @@ const CoolButton = styled.button`
   font-size: 0.97rem;
   font-weight: 700;
   overflow: hidden;
+  font-family: "League Spartan", sans-serif;
+  letter-spacing: 2px;
   position: relative;
   top: 0;
   left: 0;

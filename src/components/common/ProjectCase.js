@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ProjectTitle from "./ProjectTitle";
 import ProjectImage from "./ProjectImage";
 import { SubHeader } from "./../containers/Signature";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated, config } from "react-spring";
 import PreloadInContainer from "./../containers/PreloadInContainer";
 import Spinner from "./Spinner";
 import ReactDOM from "react-dom";
@@ -29,6 +29,7 @@ const ProjectLink = styled.a`
   justify-content: flex-end;
   text-decoration: none;
   overflow: hidden;
+
   &::before {
     position: absolute;
     left: 0;
@@ -56,6 +57,10 @@ function ProjectCase({ project, scroll }) {
   const [mask, setMask] = useSpring(() => ({
     from: {
       width: "0%"
+    },
+    config: {
+      ...config.default,
+      tension: 200
     }
   }));
   const [showPreload, togglePreload] = React.useState(false);
@@ -67,7 +72,7 @@ function ProjectCase({ project, scroll }) {
   const animate = () => {
     setMask({ width: "100%" });
     timerId.current = setTimeout(
-      () => setText({ transform: `scale(1.1,1.1)` }),
+      () => setText({ transform: `scale(1.08,1.08)` }),
       500
     );
   };

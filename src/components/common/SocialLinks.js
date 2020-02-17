@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   height: 100vh;
   top: ${props => (props.direction === "row" ? "90%" : "0%")};
   right: ${props => (props.direction === "row" ? "60%" : "8px")};
-  z-index: 999;
+  z-index: 99999;
   display: flex;
   flex-direction: ${props => props.direction || "column"};
   justify-content: center;

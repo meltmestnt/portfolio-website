@@ -115,7 +115,8 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
                   display: "flex",
                   position: "relative",
                   flexDirection: "column",
-                  height: "100vh"
+                  height: "100vh",
+                  padding: "10px 0px"
                 }}
               >
                 <div

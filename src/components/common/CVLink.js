@@ -7,6 +7,8 @@ const Link = styled.a`
   text-decoration: none;
   font-size: ${props => props.fontSize};
   position: relative;
+  align-self: ${props =>
+    props.themed && props.fontSize ? "flex-start" : "unset"};
   &::after {
     position: absolute;
     bottom: -25%;
