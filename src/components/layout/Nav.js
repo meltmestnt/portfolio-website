@@ -18,7 +18,11 @@ const Nav = styled.nav`
   position: relative;
   z-index: 99999;
   padding: 0px;
+<<<<<<< HEAD
   padding-left: 0px;
+=======
+  padding-left: 15px;
+>>>>>>> 5fab2be34edb6012859f888778fd59ee988a7460
   @media (max-width: 768px) {
     padding: 12px 15px;
   }
