@@ -17,7 +17,7 @@ import CVLink from "./../common/CVLink";
 import styled from "styled-components";
 import TranslatedText from "./../containers/TranslatedText";
 const HeaderGit = styled.p`
-  color: ${props => props.theme.color};
+  color: ${(props) => props.theme.color};
   font-size: 11px;
   font-family: "Libre Baskerville", sans-serif;
   margin: 0px 5px;
@@ -52,10 +52,12 @@ function MainContent({ changeTheme, theme }) {
           ? 5.5
           : h <= 1000
           ? 5.2
-          : 4.5
+          : h <= 1100
+          ? 4.9
+          : 4.4
       }
       vertical
-      ref={ref => (parallax.current = ref)}
+      ref={(ref) => (parallax.current = ref)}
     >
       <ParallaxLayer offset={0} speed={1}>
         <MenuOverlay
@@ -71,7 +73,7 @@ function MainContent({ changeTheme, theme }) {
             zIndex: -1,
             opacity: 0.5,
             color: "#ff4757",
-            marginLeft: "97%"
+            marginLeft: "97%",
           }}
           icon={faStar}
         />
@@ -84,7 +86,7 @@ function MainContent({ changeTheme, theme }) {
               position: "relative",
               flexDirection: "column",
               height: "100vh",
-              padding: "10px 0px"
+              padding: "10px 0px",
             }}
           >
             <SocialLinks></SocialLinks>
@@ -129,7 +131,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff4757",
-          marginLeft: "1%"
+          marginLeft: "1%",
         }}
         offset={0.5}
         speed={2}
@@ -141,7 +143,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ffa502",
-          marginLeft: "3%"
+          marginLeft: "3%",
         }}
         offset={0.3}
         speed={0.5}
@@ -153,7 +155,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#3742fa",
-          marginLeft: "5%"
+          marginLeft: "5%",
         }}
         offset={0.95}
         speed={1}
@@ -165,7 +167,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#2f3542",
-          marginLeft: "51%"
+          marginLeft: "51%",
         }}
         offset={0.65}
         speed={1}
@@ -177,7 +179,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ffa502",
-          marginLeft: "43%"
+          marginLeft: "43%",
         }}
         offset={0.73}
         speed={1}
@@ -189,7 +191,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff4757",
-          marginLeft: "26%"
+          marginLeft: "26%",
         }}
         offset={0.33}
         speed={1}
@@ -201,7 +203,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff4757",
-          marginLeft: "76%"
+          marginLeft: "76%",
         }}
         offset={0.82}
         speed={1}
@@ -213,7 +215,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#3742fa",
-          marginLeft: "13%"
+          marginLeft: "13%",
         }}
         offset={0.94}
         speed={1}
@@ -225,7 +227,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff6348",
-          marginLeft: "96%"
+          marginLeft: "96%",
         }}
         offset={0.13}
         speed={1}
@@ -237,7 +239,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff6348",
-          marginLeft: "20%"
+          marginLeft: "20%",
         }}
         offset={0.7}
         speed={1}
@@ -249,7 +251,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#3742fa",
-          marginLeft: "5%"
+          marginLeft: "5%",
         }}
         offset={0.95}
         speed={1}
@@ -261,7 +263,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff6348",
-          marginLeft: "35%"
+          marginLeft: "35%",
         }}
         offset={0.3}
         speed={0.3}
@@ -273,7 +275,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#3742fa",
-          marginLeft: "87%"
+          marginLeft: "87%",
         }}
         offset={0.65}
         speed={1}
@@ -285,7 +287,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ff6348",
-          marginLeft: "97%"
+          marginLeft: "97%",
         }}
         offset={0.9}
         speed={3}
@@ -297,7 +299,7 @@ function MainContent({ changeTheme, theme }) {
           zIndex: -1,
           opacity: 0.5,
           color: "#ffa502",
-          marginLeft: "90%"
+          marginLeft: "90%",
         }}
         offset={0.2}
         speed={0.1}
@@ -324,7 +326,9 @@ function MainContent({ changeTheme, theme }) {
             ? 5
             : h <= 1000
             ? 4.8
-            : 4.1
+            : h <= 1100
+            ? 4.5
+            : 4
         }
         speed={0.2}
       >

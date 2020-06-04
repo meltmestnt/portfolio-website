@@ -9,10 +9,14 @@ import Shop from "./../../img/SimpleShop.PNG";
 
 // icons
 
-import { ReactIcon, VueIcon, JsIcon, HTMLIcon } from "./../common/Icons";
+import {
+  ReactIcon,
+  VueIcon,
+  JsIcon,
+  HTMLIcon
+} from "./../common/Icons";
 
-export default [
-  {
+export default [{
     title: "Todo app",
     id: "todo",
     subtitle: "Todoist copy. Organize your todos.",
@@ -38,8 +42,7 @@ export default [
     icons: [ReactIcon],
     primeColor: "#0fbcf9",
     rusDesc: `Просмотрите прогноз погоды на 5 дней и отдельно для каждого дня. Вы можете просмотреть прогноз погоды по вашему местоположению или найти прогноз на интересующую вас локацию.`,
-    description:
-      "Have forecast for next 5 days and for each day individually. You can see forecast for your location or search it up for any other location you want!"
+    description: "Have forecast for next 5 days and for each day individually. You can see forecast for your location or search it up for any other location you want!"
   },
   {
     title: "Simple shop",
@@ -52,15 +55,13 @@ export default [
     icons: [ReactIcon],
     primeColor: "#485460",
     rusDesc: `Простой онлайн магазин с ассортиментом одежды, которую вы можете фильтровать по цене, названию, полу, доступности в магазине. Добавляйте продукт в корзину и оформляйте покупку! `,
-    description:
-      "Simple eCommerce app with some clothing stuff that you can filter by keyword, price, sale, sex, availability in store. Add product to cart, checkout and you're good to go!"
+    description: "Simple eCommerce app with some clothing stuff that you can filter by keyword, price, sale, sex, availability in store. Add product to cart, checkout and you're good to go!"
   },
   {
     title: "News app",
     id: "news",
     subtitle: "Look for local news or search it up with keywords.",
-    shortDesc:
-      "Просматривайте местные новости или используйте поиск глобально.",
+    shortDesc: "Просматривайте местные новости или используйте поиск глобально.",
     ref: `https://sleepy-curran-3b2aac.netlify.com/`,
     img: News,
     github: "https://github.com/meltmestnt/netlify-news-app",
@@ -73,16 +74,14 @@ export default [
     title: "Calendar",
     id: "calendar",
     subtitle: "Functional calendar. Create and organize events.",
-    shortDesc:
-      "Многофункциональный календарь. Создавайте и группируйте события.",
+    shortDesc: "Многофункциональный календарь. Создавайте и группируйте события.",
     ref: `https://dazzling-poitras-a89f6f.netlify.com/`,
     img: Calendar,
     github: "https://github.com/meltmestnt/netlify-vue-calendar",
     icons: [VueIcon],
     primeColor: "#3c40c6",
     rusDesc: `Создавайте важные события на конкретные даты, сортируйте и настраивайте каждое событие как вам угодно.`,
-    description:
-      "Create events on specific date, organize, sort and customize them whatever you like"
+    description: "Create events on specific date, organize, sort and customize them whatever you like"
   },
   {
     title: "Tilda landing page",

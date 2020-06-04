@@ -7,8 +7,8 @@ const LogoImg = styled.img`
   height: 60px;
   transform: translateY(0%);
   cursor: pointer;
-  margin-left: 15px;
-  filter: ${props =>
+  margin-left: ${(props) => (props.inverted ? "0px" : "15px")}
+  filter: ${(props) =>
     props.inverted
       ? "invert(1)"
       : props.theme.type === "dark"
