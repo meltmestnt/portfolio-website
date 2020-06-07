@@ -3,7 +3,11 @@ import { initReactI18next } from "react-i18next";
 import resources from "./resources.js";
 i18n.use(initReactI18next).init({
   resources: resources,
-  lng: "en",
+  lng: window.navigator.language
+    ? window.navigator.language.slice(0, 2) === "ru"
+      ? "ru"
+      : "en"
+    : "en",
   fallbackLng: "en",
   debug: true,
 
@@ -11,8 +15,8 @@ i18n.use(initReactI18next).init({
   defaultNS: "translations",
 
   interpolation: {
-    escapeValue: false
-  }
+    escapeValue: false,
+  },
 });
 
 export default i18n;

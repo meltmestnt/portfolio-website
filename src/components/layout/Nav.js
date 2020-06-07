@@ -11,8 +11,8 @@ import Russia from "./../../img/russia.svg";
 import UK from "./../../img/united-kingdom.svg";
 const Nav = styled.nav`
   display: flex;
-  width: ${props => (props.disableLogo ? "auto" : "100%")};
-  height: ${props => (props.disableLogo ? "100%" : "80px")};
+  width: ${(props) => (props.disableLogo ? "auto" : "100%")};
+  height: ${(props) => (props.disableLogo ? "100%" : "80px")};
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
@@ -76,7 +76,7 @@ function Navigation({
   changeTheme,
   scrollSection,
   openOverlayMenu,
-  disableLogo = false
+  disableLogo = false,
 }) {
   const { t, i18n } = useTranslation();
   const [modal, toggleModal] = React.useState(false);
