@@ -8,41 +8,48 @@ import WorkContent from "./components/layout/WorkContent";
 import styled, { ThemeProvider } from "styled-components";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import NotFound from "./components/layout/NotFound";
-import themes from "./theme";
+
 import routes from "./components/routes";
+import useTheme from "./utils/useTheme";
+import themes from "./theme";
 
 import "./components/i18n";
 
+const { dark, light } = themes;
+
 const MainContainer = styled.div`
-  background: ${props => props.theme.background || "#EBEBEB"};
+  background: ${(props) => props.theme.background || "#EBEBEB"};
   width: 100vw;
   overflow-x: hidden;
   min-width: 100vw;
   max-width: 100vw;
 `;
 
-const { dark, light } = themes;
-
 function App() {
   const [preload, togglePreload] = React.useState(true);
-  const [theme, changeTheme] = React.useState(light);
+  const [theme, changeTheme] = useTheme();
   const transitions = useTransition(preload, null, {
     from: { opacity: 0 },
     initial: { opacity: 1 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 }
+    leave: { opacity: 0 },
   });
-  const toggleTheme = () => changeTheme(theme === light ? dark : light);
+  const toggleTheme = () => {
+    let newTheme = theme === "light" ? "dark" : "light";
+    changeTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+  let themeObj = theme === "dark" ? dark : light;
   return (
     <Router>
-      <MainContainer theme={theme}>
+      <MainContainer theme={themeObj}>
         {transitions.map(({ item, key, props }) =>
           item ? (
             <animated.div
               key={key}
               style={{
-                background: theme.background || "#fff",
-                ...props
+                background: themeObj.background || "#fff",
+                ...props,
               }}
             >
               <Preload off={() => togglePreload(false)}></Preload>
@@ -55,13 +62,14 @@ function App() {
                 height: "100vh",
                 position: "absolute",
                 top: 0,
+                background: themeObj.background || "#fff",
                 left: 0,
-                ...props
+                ...props,
               }}
             >
-              <ThemeProvider theme={theme}>
+              <ThemeProvider theme={themeObj}>
                 <Switch>
-                  {routes.map(r => (
+                  {routes.map((r) => (
                     <Route path={r.path} key={r.path} exact={r.exact}>
                       {
                         <r.component

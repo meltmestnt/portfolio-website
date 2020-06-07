@@ -65,20 +65,20 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
           return true;
         } else return false;
       }),
-      nextProject: projects.find((p, i) => i === index)
+      nextProject: projects.find((p, i) => i === index),
     };
   });
   const transitions = useTransition(project, null, {
     delay: 800,
     from: {
-      opacity: 0
+      opacity: 0,
     },
     enter: {
-      opacity: 1
+      opacity: 1,
     },
     leave: {
-      opacity: 1
-    }
+      opacity: 1,
+    },
   });
   const [showMenu, toggleMenu] = React.useState(false);
   return transitions.map(({ item, key, props }) =>
@@ -92,11 +92,11 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
           height: "100%",
           top: 0,
           left: 0,
-          ...props
+          ...props,
         }}
       >
         <Parallax
-          ref={ref => (parallax.current = ref)}
+          ref={(ref) => (parallax.current = ref)}
           style={{ transition: "0.35s", background: `${theme.background}` }}
           pages={w > 768 ? (h < 670 ? 2.35 : 2.2) : 2.46}
         >
@@ -116,7 +116,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
                   position: "relative",
                   flexDirection: "column",
                   height: "100vh",
-                  padding: "10px 0px"
+                  padding: "10px 0px",
                 }}
               >
                 <div
@@ -125,7 +125,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
                     display: "flex",
                     justifyContent: "flex-end",
                     height: "80px",
-                    alignItems: "flex-end"
+                    alignItems: "flex-end",
                   }}
                 >
                   <TakeBackButton
@@ -147,7 +147,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
-                position: "relative"
+                position: "relative",
               }}
             >
               <div style={{ position: "relative" }}>
@@ -174,7 +174,7 @@ function WorkPage({ changeTheme, theme, togglePreload }) {
           <ParallaxLayer
             style={{
               width: w > 768 ? "50%" : "100%",
-              marginLeft: w > 768 ? "50%" : "0%"
+              marginLeft: w > 768 ? "50%" : "0%",
             }}
             offset={w > 768 ? 1 : 1.5}
             speed={0.75}
