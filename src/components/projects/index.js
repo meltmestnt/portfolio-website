@@ -32,7 +32,7 @@ export default [
     id: "weather",
     subtitle: "Check out week weather forecast!",
     shortDesc: "Просмотрите прогноз погоды на неделю!",
-    ref: `https://bakurov-weather-app.netlify.com/`,
+    ref: `https://dbweather.netlify.app`,
     github: "https://github.com/meltmestnt/portfolio",
     img: Weather,
     icons: [ReactIcon],
